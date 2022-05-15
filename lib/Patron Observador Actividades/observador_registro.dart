@@ -5,7 +5,7 @@ abstract class ObservadorRegistro {
   void mostrarRegistros();
 }
 
-class Registro_Auditoria extends ObservadorRegistro {
+class Registro extends ObservadorRegistro {
   List registro = [];
   @override
   void registrar(var registroA) {
@@ -14,25 +14,7 @@ class Registro_Auditoria extends ObservadorRegistro {
 
   @override
   void mostrarRegistros() {
-    print("****   REGISTRO DE AUDITORIA   ****\n");
-
-    for (var element in registro) {
-      print(element);
-    }
-  }
-}
-
-
-class Registro_Actividad extends ObservadorRegistro{
-  List registro = [];
-  @override
-  void registrar(var registroA) {
-    registro.add(registroA);
-  }
-
-  @override
-  void mostrarRegistros() {
-    print("****   REGISTRO DE AUDITORIA   ****\n");
+    print("****   REGISTRO ****\n");
 
     for (var element in registro) {
       print(element);
