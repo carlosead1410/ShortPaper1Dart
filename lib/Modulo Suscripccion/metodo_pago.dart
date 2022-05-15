@@ -43,8 +43,8 @@ class TDC extends MetodoPago{
     int? cvc;
 
   TDC(this.nombre, this.banco, this.f_vencimiento, this.nro_tarjeta, this.cvc, TipoPlan tipoPlan) : super(tipoPlan);
-  @override
 
+  @override
   String getName(){
     return "TDC";
   }
