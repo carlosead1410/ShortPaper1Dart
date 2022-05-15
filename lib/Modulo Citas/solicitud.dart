@@ -47,8 +47,10 @@ class Solicitud{
 
     void verificarSuscripccion(Paciente paciente){
         var suscripcionP = paciente.ObtenerPlan();
-        if (suscripcionP.status != StatusSuscripccion.Activa){
-            throw FormatException('El Paciente no tiene una suscripccion activa al sistema, NO podra solicitar citas');
+        if (suscripcionP.status == StatusSuscripccion.Cancelada){
+            throw FormatException('El Paciente CANCELO su suscripccion al sistema, no podra solicitar citas');
+        }else if(suscripcionP.status == StatusSuscripccion.Bloqueada){
+            throw FormatException('Su suscripccion fue BLOQUEADA por un mal uso del sistema, NO podra solicitar Citas');          
         }
     }
 }
