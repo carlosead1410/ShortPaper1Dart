@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_new, unused_local_variable, unused_import
+// ignore_for_file: unnecessary_new, unused_local_variable, unused_import, non_constant_identifier_names
 
 import 'package:apartado3/Modulo%20Citas/solicitud.dart';
 import 'package:apartado3/Modulo%20Suscripccion/suscripccion.dart';
@@ -9,29 +9,34 @@ import 'package:apartado3/Patron%20Observador%20Actividades/observador_registro.
 import 'package:apartado3/apartado3.dart' as apartado3;
 
 void main(List<String> arguments) {
-  probandoSuscripccion();
+  cu_solicitarCitaCancelada();
 }
-
-void probandoSuscripccion() {
-  var suscripccion = new Suscripcion();
-  var metodo = Paypal("arriaga1410@gmail.com", TipoPlan.anual);
-
-  print(metodo);
-}
-
 
 //CASO DE USO PACIENTE SOLICITA CITA (SUSCRIPCCION CANCELADA O BLOQUEADA)
 void cu_solicitarCitaCancelada() {
-    print("****CASO DE USO SOLICITUD CITA CON SUSCRIPCCION CANCELADA O BLOQUEADA");
+  print(
+      "****CASO DE USO SOLICITUD CITA CON SUSCRIPCCION CANCELADA O BLOQUEADA");
 
-    //ESTE OBJETO ES UNICO PARA LLEVAR TODO EL REGISTRO DE ACTIVIDADES DE LOS PACIENTES
-    Registro registro_actividad = new Registro();
-    Registro registro_Auditoria = new Registro();
+  //ESTE OBJETO ES UNICO PARA LLEVAR TODO EL REGISTRO DE ACTIVIDADES DE LOS PACIENTES
+  Registro registro_actividad = new Registro();
+  Registro registro_auditoria= new Registro();
 
 
-    //Se crea al paciente
-    Paciente paciente1 =  new Paciente('Carlos Arriaga', 21, 'Estudiante', ['1', '2', '3'], 'arriaga1410@gmail.com', 1212, registro_actividad);
+  //Se crea al paciente
+  Paciente paciente1 = new Paciente('Carlos Arriaga', 21, 'Estudiante',
+      ['1', '2', '3'], 'arriaga1410@gmail.com', 1212, registro_actividad);
 
-    Suscripcion suscripccion = new Suscripcion();
-    
+  Suscripcion suscripccion = new Suscripcion();
+
+  suscripccion.actualizarStatus(StatusSuscripccion.Cancelada);
+  paciente1.setSuscripccion(suscripccion);
+
+  //Se crea al doctor
+  Doctor doctor1 = new Doctor("Eduardo Damiano", [new Cardiologo(), new Peidatra()], new Ubicacion("Venezuela", "Dto Capital", "Caracas"), registro_auditoria);
+
+  //EL PACIENTE HACE LA SOLICITUD DE CITA
+  Solicitud solicitud = paciente1.solicitarCita(TipoCita.Presencial, doctor1, new Peidatra());
+
+  solicitud.verificarSuscripccion(paciente1);
+  
 }

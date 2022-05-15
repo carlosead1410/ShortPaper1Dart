@@ -84,7 +84,7 @@ class Paciente extends ObservableAuditoria {
       print('***PROCESO SOLICITUD DE CITA ***');
       print('Paciente: ${this._nombre}');
       print('Doctor: ${doctor.getNombre()}');
-      print('Doctor: ${especialidad.getNombre()}');
+      print('Especialidad: ${especialidad.getNombre()}');
       print('Tipo Solicitud: $tipo');
       print('');
       Solicitud solicitud = Solicitud(tipo, especialidad);
