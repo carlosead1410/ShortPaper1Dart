@@ -9,11 +9,11 @@ import 'package:apartado3/Patron%20Observador%20Actividades/observador_registro.
 import 'package:apartado3/apartado3.dart' as apartado3;
 
 void main(List<String> arguments) {
-  cu_solicitarCitaCancelada();
+  cu_solicitarCitaBloqueada();
 }
 
 //CASO DE USO PACIENTE SOLICITA CITA (SUSCRIPCCION CANCELADA O BLOQUEADA)
-void cu_solicitarCitaCancelada() {
+void cu_solicitarCitaBloqueada() {
   print(
       "****CASO DE USO SOLICITUD CITA CON SUSCRIPCCION CANCELADA O BLOQUEADA");
 
@@ -28,6 +28,7 @@ void cu_solicitarCitaCancelada() {
 
   Suscripcion suscripccion = new Suscripcion();
 
+  //SE SIMULA QUE EL ADMIN DEL SISTEMA LE HAYA BLOQUEADO LA SUSCRIPCCION AL PACIENTE POR UN MAL USO DEL MISMO
   suscripccion.actualizarStatus(StatusSuscripccion.Cancelada);
   paciente1.setSuscripccion(suscripccion);
 
@@ -38,5 +39,5 @@ void cu_solicitarCitaCancelada() {
   Solicitud solicitud = paciente1.solicitarCita(TipoCita.Presencial, doctor1, new Peidatra());
 
   solicitud.verificarSuscripccion(paciente1);
-  
+
 }
