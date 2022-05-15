@@ -169,13 +169,13 @@ class Doctor extends ObservableAuditoria {
     Cita cita;
     if (solicitud.getTipo() == TipoCita.Presencial) {
       cita = Presencial(
-          paciente, fecha, solicitud.getEspecialidad(), notificacion);
+          fecha, paciente, solicitud.getEspecialidad(), notificacion);
     } else {
       cita = Telemedicina(
-          paciente, fecha, solicitud.getEspecialidad(), notificacion);
+          fecha, paciente, solicitud.getEspecialidad(), notificacion);
     }
 
-    this._historialCitas!.add(cita);
+    this._historialCitas?.add(cita);
     return cita;
   }
 
