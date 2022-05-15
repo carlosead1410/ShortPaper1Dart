@@ -25,7 +25,7 @@ abstract class Cita extends ObservableNotificacion {
 
   void finalizarCita();
 
-  dynamic obternerPaciente();
+  Paciente obternerPaciente();
 }
 
 class Telemedicina extends Cita {
@@ -36,8 +36,8 @@ class Telemedicina extends Cita {
   }
 
   @override
-  dynamic obternerPaciente() {
-    return paciente;
+  Paciente obternerPaciente() {
+    return paciente!;
   }
 
   @override
@@ -62,8 +62,8 @@ class Presencial extends Cita {
   }
 
   @override
-  dynamic obternerPaciente() {
-    return paciente;
+  Paciente obternerPaciente() {
+    return paciente!;
   }
 
   @override

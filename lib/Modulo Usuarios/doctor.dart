@@ -1,9 +1,11 @@
 //NOMBRABLE
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_this, unused_field
+// ignore_for_file: non_constant_identifier_names, unnecessary_this, unused_field, avoid_shadowing_type_parameters
 
 import '../Modulo Citas/solicitud.dart';
 import '../Modulo Citas/cita.dart';
+import '../Modulo Historia Medica/historial_medico.dart';
+import '../Modulo Notificaciones/notificacion.dart';
 import '../Patron Observador Actividades/observador_registro.dart';
 import 'pacientes.dart';
 
@@ -116,71 +118,79 @@ class Doctor extends ObservableAuditoria {
     this.observador.registrar(arreglo);
   }
 
-  // addRegistroMed(RegistroMedico registro, Paciente paciente) {
-  //     var HistorialMedico historia = paciente.obtenerHistorial();
-  //     historia.agregarRegistro(registro);
-  //     historia.mostrarRegistro();
-  // }
+  addRegistroMed(RegistroMedico registro, Paciente paciente) {
+    HistorialMedico historia = paciente.obtenerHistorial();
+    historia.agregarRegistro(registro);
+    historia.mostrarRegistros();
+  }
 
-  // crearRegistroMedico(Paciente paciente, Cita cita) {
+  crearRegistroMedico(Paciente paciente, Cita cita) {
+    /*
+          Se debe verificar si el paciente tiene o no tiene historia medica
+          si no tiene debe ser creada
+      */
+    if (paciente.historia == null) {
+      paciente.historia = HistorialMedico();
+      this.notify([
+        this.getNombre(),
+        DateTime.now().toString(),
+        paciente.getNombre(),
+        "Creó historia médica"
+      ]);
+    }
+    //La Cita pasa a estar en curso
+    cita.actualizarStatus(StatusCita.EnCurso);
+    /*
+          El metodo debe recibir el tipo de especializacion a la cual sera atendido
+          ya que el doctor puede tener varias especializaciones
 
-  //     /*
-  //         Se debe verificar si el paciente tiene o no tiene historia medica
-  //         si no tiene debe ser creada
-  //     */
-  //     if (paciente._historia === undefined) {
-  //         paciente._historia = new HistorialMedico();
-  //         this.notify([this.getNombre(),new Date(Date.now()).toLocaleString(),paciente.getNombre(),"Creó historia médica"])
-  //     }
-  //     //La Cita pasa a estar en curso
-  //     cita.actualizarStatus(StatusCita.enCurso);
-  //     /*
-  //         El metodo debe recibir el tipo de especializacion a la cual sera atendido
-  //         ya que el doctor puede tener varias especializaciones
+      */
+    int espIndex = 0;
+    for (var i = 0; i < this._especializaciones!.length; i++) {
+      if (this._especializaciones![i].getNombre() ==
+          cita.especialidad!.getNombre()) {
+        espIndex = i;
+      }
+    }
+    var exMed = this._especializaciones![espIndex].examenMedico();
+    cita.actualizarStatus(StatusCita.Finalizada);
+    var registro1 = RegistroMedico(exMed, NotificacionPush());
+    this.addRegistroMed(registro1, paciente);
+    this.notify([
+      this.getNombre(),
+      DateTime.now().toString(),
+      paciente.getNombre(),
+      "Creó registro médico"
+    ]);
+  }
 
-  //     */
-  //     int espIndex  = 0;
-  //     for (var  i  = 0; i < this._especializaciones!.length; i++) {
-  //         if (this._especializaciones![i].getNombre() == cita.especialidad.getNombre()) {
-  //             espIndex = i;
-  //         }
-  //     }
-  //     var exMed = this._especializaciones[espIndex].examenMedico();
-  //     cita.actualizarStatus(StatusCita.finalizada);
-  //     var registro1 = new RegistroMedico(exMed, new NotificacionPush());
-  //     this.addRegistroMed(registro1, paciente);
-  //     this.notify([this.getNombre(),new Date(Date.now()).toLocaleString(),paciente.getNombre(),"Creó registro médico"])
-  // }
+  Cita agendarCita(Paciente paciente, DateTime fecha, Solicitud solicitud) {
+    SMS notificacion = SMS();
+    Cita cita;
+    if (solicitud.getTipo() == TipoCita.Presencial) {
+      cita = Presencial(
+          paciente, fecha, solicitud.getEspecialidad(), notificacion);
+    } else {
+      cita = Telemedicina(
+          paciente, fecha, solicitud.getEspecialidad(), notificacion);
+    }
 
-  // Cita agendarCita(Paciente paciente, DateTime fecha, Solicitud solicitud) {
-  //     SMS notificacion = new SMS()
-  //     Cita cita;
-  //     if (solicitud.getTipo() == TipoCita.Presencial) {
-  //         cita = new Presencial(paciente, fecha, solicitud.getEspecialidad(), notificacion)
-
-  //     } else {
-  //         cita = new Telemedicina(paciente, fecha, solicitud.getEspecialidad(), notificacion)
-  //     }
-
-  //     this._historialCitas.add(cita);
-  //     return cita;
-
-  // }
+    this._historialCitas!.add(cita);
+    return cita;
+  }
 
   modificarHistoriaMedica(Paciente paciente) {}
 }
 
 //BUSQUEDA DE DOCTORES
-// export class BuscarDoctor {
-//     Doctores: Doctor[];
+class BuscarDoctor<tipoE> {
+  List<Doctor> Doctores = [];
+  tipoE? e;
+  void buscarDoctor<tipoE>(tipoE E) {
+    return;
+  }
 
-//     buscarDoctor<tipoE>(E: tipoE): void {
-
-//         return;
-//     }
-
-//     buscarTopDoctor(): void {
-
-//         return;
-//     }
-// }
+  void buscarTopDoctor() {
+    return;
+  }
+}

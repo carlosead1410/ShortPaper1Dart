@@ -1,7 +1,10 @@
 // ignore_for_file: unused_field, prefer_typing_uninitialized_variables, non_constant_identifier_names, unnecessary_this, unused_import
 
+import 'package:apartado3/Modulo%20Citas/cita.dart';
+import 'package:apartado3/Modulo%20Citas/solicitud.dart';
 import 'package:apartado3/Modulo%20Historia%20Medica/historial_medico.dart';
 import 'package:apartado3/Modulo%20Suscripccion/suscripccion.dart';
+import 'package:apartado3/Modulo%20Usuarios/doctor.dart';
 // import 'package:apartado3/Modulo%20Usuarios/doctor.dart';
 
 // import '../Modulo Citas/solicitud.dart';
@@ -18,7 +21,7 @@ class Paciente extends ObservableAuditoria {
   int? _docid;
   Suscripcion? _plan;
 
-  HistorialMedico? _historia;
+  HistorialMedico? historia;
 
   Paciente(String nombre, int edad, String profesion, List<String> telefonos,
       String correo, int docid, ObservadorRegistro o)
@@ -47,8 +50,8 @@ class Paciente extends ObservableAuditoria {
     _plan = suscripccion;
   }
 
-  obtenerHistorial() {
-    return _historia;
+  HistorialMedico obtenerHistorial() {
+    return historia!;
   }
 
   void cancelarSuscripcion() {
@@ -74,24 +77,24 @@ class Paciente extends ObservableAuditoria {
   }
 
   void verHistorialMedico() {
-    _historia?.mostrarRegistros();
+    historia?.mostrarRegistros();
   }
 
-  // Solicitud solicitarCita(TipoCita tipo, Doctor doctor, Especialidad especialidad) {
-  //     print('***PROCESO SOLICITUD DE CITA ***');
-  //     print('Paciente: ${this._nombre}');
-  //     print('Doctor: ${doctor.getNombre()}');
-  //     print('Doctor: ${especialidad.getNombre()}');
-  //     print('Tipo Solicitud: $tipo');
-  //     print('');
-  //     Solicitud solicitud = Solicitud(tipo, especialidad);
-  //     return solicitud;
-  //     //solicitud.notificarDoctor(doctor, this);
-  // }
+  Solicitud solicitarCita(TipoCita tipo, Doctor doctor, Especialidad especialidad) {
+      print('***PROCESO SOLICITUD DE CITA ***');
+      print('Paciente: ${this._nombre}');
+      print('Doctor: ${doctor.getNombre()}');
+      print('Doctor: ${especialidad.getNombre()}');
+      print('Tipo Solicitud: $tipo');
+      print('');
+      Solicitud solicitud = Solicitud(tipo, especialidad);
+      return solicitud;
+      //solicitud.notificarDoctor(doctor, this);
+  }
 
-  // responderCita(Cita cita, StatusCita tipo) {
-  //     cita.actualizarStatus(tipo);
-  // }
+  responderCita(Cita cita, StatusCita tipo) {
+      cita.actualizarStatus(tipo);
+  }
 
   void setSuscripccion(Suscripcion s) {
     this._plan = s;
