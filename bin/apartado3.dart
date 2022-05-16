@@ -16,6 +16,8 @@ void main(List<String> arguments) {
   // cu_solicitarCitaBloqueada();
   //cu_cancelarCitaPaciente();
   // cu_crearFeedback();
+  //cu_buscarDoctorEspecialidad();
+  // cu_buscarDoctorUbicacion();
 }
 
 void cu_crearFeedback() {
@@ -35,8 +37,7 @@ void cu_crearFeedback() {
       paciente1, new DateTime(2022, DateTime.june, 5, 8, 30), solicitud);
 
   cita.finalizarCita(); //MUY IMPORTANTE, leer comentario situado en la clase feedback para entender porque se hizo asi.
-  //cu_buscarDoctorEspecialidad();
-  cu_buscarDoctorUbicacion();
+
 }
 
 //CASO DE USO PACIENTE SOLICITA CITA (SUSCRIPCCION CANCELADA O BLOQUEADA)
