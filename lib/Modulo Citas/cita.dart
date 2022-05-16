@@ -15,7 +15,7 @@ abstract class Cita extends ObservableNotificacion {
   Especialidad? especialidad;
   RegistroMedico? registroMedico;
 
-  Cita(this.fecha, this.paciente, o, this.especialidad) : super(o) {
+  Cita(this.fecha, this.paciente, this.especialidad, o) : super(o) {
     status = StatusCita.Pendiente;
   }
 
