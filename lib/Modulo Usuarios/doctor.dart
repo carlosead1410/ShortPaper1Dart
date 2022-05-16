@@ -183,14 +183,41 @@ class Doctor extends ObservableAuditoria {
 }
 
 //BUSQUEDA DE DOCTORES
-class BuscarDoctor<tipoE> {
+class BuscarDoctor {
   List<Doctor> Doctores = [];
-  tipoE? e;
-  void buscarDoctor<tipoE>(tipoE E) {
-    return;
-  }
+
+  BuscarDoctor(this.Doctores);
 
   void buscarTopDoctor() {
     return;
   }
+
+  bool buscarEspecialidad(Doctor d, Especialidad e) {
+    for (var especialidad in d.getEspecializaciones()) {
+      if (e.getNombre() == especialidad.getNombre()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  List<Doctor> filtrarLista(Especialidad e) {
+    List<Doctor> listaFiltrada =
+        Doctores.where((doctor) => buscarEspecialidad(doctor, e) == true)
+            .toList();
+    return listaFiltrada;
+  }
+
+  List<Doctor> filtrarListaU(Ubicacion u) {
+    List<Doctor> listaFiltrada = Doctores.where(
+        (doctor) => doctor._consultorio?.getNombre() == u.getNombre()).toList();
+    return listaFiltrada;
+  }
+  /*
+  List<Doctor> filtrarLista(Ubicacion u, String lugar) {
+    List<Doctor> listaFiltrada = Doctores.where(
+        (doctor) => doctor._consultorio?.getNombre() == u.getNombre()).toList();
+    return listaFiltrada;
+  }
+  */
 }

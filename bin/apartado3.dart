@@ -15,7 +15,7 @@ import 'package:apartado3/Patron Observador Actividades/observador_registro.dart
 void main(List<String> arguments) {
   // cu_solicitarCitaBloqueada();
   //cu_cancelarCitaPaciente();
-  cu_crearFeedback();
+  // cu_crearFeedback();
 }
 
 void cu_crearFeedback() {
@@ -35,6 +35,8 @@ void cu_crearFeedback() {
       paciente1, new DateTime(2022, DateTime.june, 5, 8, 30), solicitud);
 
   cita.finalizarCita(); //MUY IMPORTANTE, leer comentario situado en la clase feedback para entender porque se hizo asi.
+  //cu_buscarDoctorEspecialidad();
+  cu_buscarDoctorUbicacion();
 }
 
 //CASO DE USO PACIENTE SOLICITA CITA (SUSCRIPCCION CANCELADA O BLOQUEADA)
@@ -70,6 +72,7 @@ void cu_solicitarCitaBloqueada() {
   solicitud.verificarSuscripccion(paciente1);
 }
 
+//CASO DE USO PACIENTE CANCELAR CITA
 void cu_cancelarCitaPaciente() {
   // SE CREAN LOS REGISTROS DE ACTIVIDAD Y AUDITORIA
   Registro registroActividad = new Registro();
@@ -103,5 +106,61 @@ void cu_cancelarCitaPaciente() {
     print(
         'El Paciente: ${paciente1.getNombre()} cancelo  su cita al doctor: ${doctor1.getNombre()}  la Cita de fecha ${cita.fecha} status: ${cita.status}');
     print('');
+  }
+}
+
+//CASO DE USO BUSCAR DOCTOR POR ESPECIALIDAD
+void cu_buscarDoctorEspecialidad() {
+  Registro registroAuditoria = new Registro();
+  // SE CREAN VARIOS DOCTORES
+  Doctor doctor1 = new Doctor('Maria Perez', [new Peidatra(), new Neurologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registroAuditoria);
+  Doctor doctor2 = new Doctor('Rafael Rodriguez', [new Neurologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registroAuditoria);
+  Doctor doctor3 = new Doctor('Aurola Martinez', [new Cardiologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registroAuditoria);
+  Doctor doctor4 = new Doctor('Jose Lopez', [new Cardiologo()],
+      new Ubicacion("Venezuela", "Carabobo", "San Diego"), registroAuditoria);
+  Doctor doctor5 = new Doctor('Laura Sanchez', [new Neurologo()],
+      new Ubicacion("Venezuela", "Carabobo", "San Diego"), registroAuditoria);
+
+  BuscarDoctor buscarDoctor =
+      new BuscarDoctor([doctor1, doctor2, doctor3, doctor4, doctor5]);
+  print("***Buscar Doctores por Especialidad***");
+  Neurologo neurologo = new Neurologo();
+  // SE HACE EL FILTRO POR ESPECIALIDAD
+  List<Doctor> listaFiltrada = buscarDoctor.filtrarLista(neurologo);
+  print("Especialidad buscada: ${neurologo.getNombre()}");
+  for (Doctor doctor in listaFiltrada) {
+    print(
+        " ${doctor.getNombre()}  tiene la especialidad ${neurologo.getNombre()}");
+  }
+}
+
+//CASO DE USO BUSCAR DOCTOR POR UBICACION
+void cu_buscarDoctorUbicacion() {
+  Registro registroAuditoria = new Registro();
+  // SE CREAN VARIOS DOCTORES
+  Doctor doctor1 = new Doctor('Maria Perez', [new Peidatra(), new Neurologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registroAuditoria);
+  Doctor doctor2 = new Doctor('Rafael Rodriguez', [new Neurologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registroAuditoria);
+  Doctor doctor3 = new Doctor('Aurola Martinez', [new Cardiologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registroAuditoria);
+  Doctor doctor4 = new Doctor('Jose Lopez', [new Cardiologo()],
+      new Ubicacion("Venezuela", "Carabobo", "San Diego"), registroAuditoria);
+  Doctor doctor5 = new Doctor('Laura Sanchez', [new Neurologo()],
+      new Ubicacion("Venezuela", "Carabobo", "San Diego"), registroAuditoria);
+
+  BuscarDoctor buscarDoctor =
+      new BuscarDoctor([doctor1, doctor2, doctor3, doctor4, doctor5]);
+  print("***Buscar Doctores por Ubicacion***");
+  Ubicacion venezuela = Ubicacion('Venezuela', 'Carabobo', 'San Diego');
+  print('UBICACION: ${venezuela.getNombre()}');
+  // SE HACE EL FILTRO POR UBICACION
+  List<Doctor> listaFiltrada = buscarDoctor.filtrarListaU(venezuela);
+  for (Doctor doctor in listaFiltrada) {
+    print(
+        " ${doctor.getNombre()}  tienen su consultorio ${venezuela.getNombre()}");
   }
 }
