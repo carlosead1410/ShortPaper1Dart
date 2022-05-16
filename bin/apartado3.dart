@@ -14,7 +14,27 @@ import 'package:apartado3/Patron Observador Actividades/observador_registro.dart
 
 void main(List<String> arguments) {
   // cu_solicitarCitaBloqueada();
-  cu_cancelarCitaPaciente();
+  //cu_cancelarCitaPaciente();
+  cu_crearFeedback();
+}
+
+void cu_crearFeedback() {
+  Registro registro_actividad = new Registro();
+  Registro registro_auditoria = new Registro();
+
+  Doctor doctor1 = new Doctor('Maria Perez', [new Peidatra(), new Neurologo()],
+      new Ubicacion("Venezuela", "Miranda", "Los Teques"), registro_auditoria);
+
+  Paciente paciente1 = new Paciente('Carlos Arriaga', 21, 'Estudiante',
+      ['1', '2', '3'], 'arriaga1410@gmail.com', 1212, registro_actividad);
+
+  Solicitud solicitud =
+      paciente1.solicitarCita(TipoCita.Teleconsulta, doctor1, new Neurologo());
+
+  Cita cita = doctor1.agendarCita(
+      paciente1, new DateTime(2022, DateTime.june, 5, 8, 30), solicitud);
+
+  cita.finalizarCita(); //MUY IMPORTANTE, leer comentario situado en la clase feedback para entender porque se hizo asi.
 }
 
 //CASO DE USO PACIENTE SOLICITA CITA (SUSCRIPCCION CANCELADA O BLOQUEADA)

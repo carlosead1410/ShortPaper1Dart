@@ -7,7 +7,7 @@ import 'package:apartado3/Modulo%20Suscripccion/suscripccion.dart';
 import 'package:apartado3/Modulo%20Usuarios/doctor.dart';
 // import 'package:apartado3/Modulo%20Usuarios/doctor.dart';
 
-// import '../Modulo Citas/solicitud.dart';
+import '../Modulo Citas/feedback.dart';
 import '../Modulo Suscripccion/ivisitor.dart';
 import '../Modulo Suscripccion/metodo_pago.dart';
 import '../Patron Observador Actividades/observador_registro.dart';
@@ -66,6 +66,16 @@ class Paciente extends ObservableAuditoria {
     return _plan!;
   }
 
+  FeedBack crearFeedback(Telemedicina telmed) {
+    /* ¡¡¡ ATENCION !!!
+    Para efectos del ejemplo se asumio que al finalizar la cita el paciente automaticamente realiza el feedback, pero
+    esto no es asi, realmente deberiamos tener alguna interaccion entre (SISTEMA - PACIENTE) para que asi este le haga
+    saber al sistema si desea realizar un feedback, de ser asi se llamaria al metodo "servirFeedback()" directamente
+    desde la instancia  y no desde el metodo "finalizarCita()", manera que se llevo acabo en esta oportunidad*/
+    FeedBack fb = FeedBack("Excelente servicio, amo este sistema", 5);
+    return fb;
+  }
+
   @override
   void add(ObservadorRegistro o) {
     this.observador = this.observador;
@@ -82,7 +92,7 @@ class Paciente extends ObservableAuditoria {
 
   Solicitud solicitarCita(
       TipoCita tipo, Doctor doctor, Especialidad especialidad) {
-    print('***PROCESO SOLICITUD DE CITA ***');
+    print('*** PROCESO SOLICITUD DE CITA ***');
     print('Paciente: ${this._nombre}');
     print('Doctor: ${doctor.getNombre()}');
     print('Especialidad: ${especialidad.getNombre()}');

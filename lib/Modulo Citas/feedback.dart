@@ -7,19 +7,19 @@ class FeedBack {
     _valoracion = valoracion;
   }
 
-  int get valoracion {
+  int getvaloracion() {
     return _valoracion;
   }
 
-  String get comentario {
+  String getcomentario() {
     return _comentario;
   }
 
-  set valoracion(int v) {
+  setvaloracion(int v) {
     _valoracion = v;
   }
 
-  set comentario(String comentario) {
+  setcomentario(String comentario) {
     _comentario = comentario;
   }
 }

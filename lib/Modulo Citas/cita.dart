@@ -33,6 +33,7 @@ class Telemedicina extends Cita {
   void finalizarCita() {
     print("Cita Virtual finalizada");
     status = StatusCita.Finalizada;
+    servirFeedback(this);
   }
 
   @override
@@ -52,6 +53,13 @@ class Telemedicina extends Cita {
 
   Telemedicina(fecha, paciente, especialidad, o)
       : super(fecha, paciente, especialidad, o);
+
+  void servirFeedback(Telemedicina telmed) {
+    feedBack = paciente?.crearFeedback(telmed);
+    String? comentario = feedBack?.getcomentario();
+    int? valoracion = feedBack?.getvaloracion();
+    print('$comentario , $valoracion');
+  }
 }
 
 class Presencial extends Cita {
