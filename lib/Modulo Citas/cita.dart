@@ -24,6 +24,7 @@ abstract class Cita extends ObservableNotificacion {
   }
 
   void finalizarCita();
+  void servirFeedback();
 
   Paciente obternerPaciente();
 }
@@ -33,7 +34,7 @@ class Teleconsulta extends Cita {
   void finalizarCita() {
     print("Cita Virtual finalizada");
     status = StatusCita.Finalizada;
-    servirFeedback(this);
+    servirFeedback();
   }
 
   @override
@@ -54,8 +55,10 @@ class Teleconsulta extends Cita {
   Teleconsulta(fecha, paciente, especialidad, o)
       : super(fecha, paciente, especialidad, o);
 
-  void servirFeedback(Teleconsulta telmed) {
-    feedBack = paciente?.crearFeedback(telmed);
+
+  @override
+  void servirFeedback() {
+    feedBack = paciente?.crearFeedback();
     String? comentario = feedBack?.getcomentario();
     int? valoracion = feedBack?.getvaloracion();
     print('$comentario , $valoracion');
@@ -83,6 +86,15 @@ class Presencial extends Cita {
   void notify() {
     observador?.notificar();
   }
+
+  @override
+  void servirFeedback() {
+    feedBack = paciente?.crearFeedback();
+    String? comentario = feedBack?.getcomentario();
+    int? valoracion = feedBack?.getvaloracion();
+    print('$comentario , $valoracion');
+  }
+
 
   Presencial(fecha, paciente, especialidad, o)
       : super(fecha, paciente, especialidad, o);

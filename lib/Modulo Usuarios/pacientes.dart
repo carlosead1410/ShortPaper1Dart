@@ -48,6 +48,11 @@ class Paciente extends ObservableAuditoria {
     suscripccion.actualizarFecha();
     suscripccion.actualizarStatus(StatusSuscripccion.Activa);
     _plan = suscripccion;
+    this.notify([
+      this.getNombre(),
+      DateTime.now().toString(),
+      "Inicio proceso de suscripción"
+    ]);
   }
 
   HistorialMedico obtenerHistorial() {
@@ -56,6 +61,8 @@ class Paciente extends ObservableAuditoria {
 
   void cancelarSuscripcion() {
     _plan!.actualizarStatus(StatusSuscripccion.Cancelada);
+    this.notify(
+        [this.getNombre(), DateTime.now().toString(), "Cancelo Suscripción"]);
   }
 
   void MostrarPlan() {
@@ -66,13 +73,15 @@ class Paciente extends ObservableAuditoria {
     return _plan!;
   }
 
-  FeedBack crearFeedback(Teleconsulta telmed) {
+  FeedBack crearFeedback() {
     /* ¡¡¡ ATENCION !!!
     Para efectos del ejemplo se asumio que al finalizar la cita el paciente automaticamente realiza el feedback, pero
     esto no es asi, realmente deberiamos tener alguna interaccion entre (SISTEMA - PACIENTE) para que asi este le haga
     saber al sistema si desea realizar un feedback, de ser asi se llamaria al metodo "servirFeedback()" directamente
     desde la instancia  y no desde el metodo "finalizarCita()", manera que se llevo acabo en esta oportunidad*/
     FeedBack fb = FeedBack("Excelente servicio, amo este sistema", 5);
+    this.notify(
+        [this.getNombre(), DateTime.now().toString(), "Realizo Feedback"]);
     return fb;
   }
 
@@ -99,12 +108,22 @@ class Paciente extends ObservableAuditoria {
     print('Tipo Solicitud: $tipo');
     print('');
     Solicitud solicitud = Solicitud(tipo, especialidad);
+    this.notify([
+      this.getNombre(),
+      DateTime.now().toString(),
+      "Solicitó Cita de tipo $tipo"
+    ]);
     return solicitud;
     //solicitud.notificarDoctor(doctor, this);
   }
 
   responderCita(Cita cita, StatusCita tipo) {
     cita.actualizarStatus(tipo);
+    this.notify([
+      this.getNombre(),
+      DateTime.now().toString(),
+      "Respondio cita con: $tipo"
+    ]);
   }
 
   void setSuscripccion(Suscripcion s) {

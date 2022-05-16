@@ -15,7 +15,7 @@ import 'package:apartado3/Patron Observador Actividades/observador_registro.dart
 void main(List<String> arguments) {
   // cu_solicitarCitaBloqueada();
   //cu_cancelarCitaPaciente();
-  // cu_crearFeedback();
+  cu_crearFeedback();
   //cu_buscarDoctorEspecialidad();
   // cu_buscarDoctorUbicacion();
 }
@@ -37,7 +37,7 @@ void cu_crearFeedback() {
       paciente1, new DateTime(2022, DateTime.june, 5, 8, 30), solicitud);
 
   cita.finalizarCita(); //MUY IMPORTANTE, leer comentario situado en la clase feedback para entender porque se hizo asi.
-
+  registro_actividad.mostrarRegistros();
 }
 
 //CASO DE USO PACIENTE SOLICITA CITA (SUSCRIPCCION CANCELADA O BLOQUEADA)
@@ -71,6 +71,7 @@ void cu_solicitarCitaBloqueada() {
       paciente1.solicitarCita(TipoCita.Presencial, doctor1, new Peidatra());
 
   solicitud.verificarSuscripccion(paciente1);
+  registro_actividad.mostrarRegistros();
 }
 
 //CASO DE USO PACIENTE CANCELAR CITA
@@ -108,6 +109,7 @@ void cu_cancelarCitaPaciente() {
         'El Paciente: ${paciente1.getNombre()} cancelo  su cita al doctor: ${doctor1.getNombre()}  la Cita de fecha ${cita.fecha} status: ${cita.status}');
     print('');
   }
+  registroActividad.mostrarRegistros();
 }
 
 //CASO DE USO BUSCAR DOCTOR POR ESPECIALIDAD
@@ -136,6 +138,7 @@ void cu_buscarDoctorEspecialidad() {
     print(
         " ${doctor.getNombre()}  tiene la especialidad ${neurologo.getNombre()}");
   }
+  //registro_actividad.mostrarRegistros();
 }
 
 //CASO DE USO BUSCAR DOCTOR POR UBICACION
@@ -164,4 +167,5 @@ void cu_buscarDoctorUbicacion() {
     print(
         " ${doctor.getNombre()}  tienen su consultorio ${venezuela.getNombre()}");
   }
+  //registro_actividad.mostrarRegistros();
 }
