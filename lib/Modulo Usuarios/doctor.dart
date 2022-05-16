@@ -171,7 +171,7 @@ class Doctor extends ObservableAuditoria {
       cita = Presencial(
           fecha, paciente, solicitud.getEspecialidad(), notificacion);
     } else {
-      cita = Telemedicina(
+      cita = Teleconsulta(
           fecha, paciente, solicitud.getEspecialidad(), notificacion);
     }
 

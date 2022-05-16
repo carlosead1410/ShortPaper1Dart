@@ -66,7 +66,7 @@ class Paciente extends ObservableAuditoria {
     return _plan!;
   }
 
-  FeedBack crearFeedback(Telemedicina telmed) {
+  FeedBack crearFeedback(Teleconsulta telmed) {
     /* ¡¡¡ ATENCION !!!
     Para efectos del ejemplo se asumio que al finalizar la cita el paciente automaticamente realiza el feedback, pero
     esto no es asi, realmente deberiamos tener alguna interaccion entre (SISTEMA - PACIENTE) para que asi este le haga

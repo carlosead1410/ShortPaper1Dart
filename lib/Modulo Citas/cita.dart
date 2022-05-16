@@ -28,7 +28,7 @@ abstract class Cita extends ObservableNotificacion {
   Paciente obternerPaciente();
 }
 
-class Telemedicina extends Cita {
+class Teleconsulta extends Cita {
   @override
   void finalizarCita() {
     print("Cita Virtual finalizada");
@@ -51,10 +51,10 @@ class Telemedicina extends Cita {
     observador?.notificar();
   }
 
-  Telemedicina(fecha, paciente, especialidad, o)
+  Teleconsulta(fecha, paciente, especialidad, o)
       : super(fecha, paciente, especialidad, o);
 
-  void servirFeedback(Telemedicina telmed) {
+  void servirFeedback(Teleconsulta telmed) {
     feedBack = paciente?.crearFeedback(telmed);
     String? comentario = feedBack?.getcomentario();
     int? valoracion = feedBack?.getvaloracion();
