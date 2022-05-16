@@ -80,20 +80,21 @@ class Paciente extends ObservableAuditoria {
     historia?.mostrarRegistros();
   }
 
-  Solicitud solicitarCita(TipoCita tipo, Doctor doctor, Especialidad especialidad) {
-      print('***PROCESO SOLICITUD DE CITA ***');
-      print('Paciente: ${this._nombre}');
-      print('Doctor: ${doctor.getNombre()}');
-      print('Especialidad: ${especialidad.getNombre()}');
-      print('Tipo Solicitud: $tipo');
-      print('');
-      Solicitud solicitud = Solicitud(tipo, especialidad);
-      return solicitud;
-      //solicitud.notificarDoctor(doctor, this);
+  Solicitud solicitarCita(
+      TipoCita tipo, Doctor doctor, Especialidad especialidad) {
+    print('***PROCESO SOLICITUD DE CITA ***');
+    print('Paciente: ${this._nombre}');
+    print('Doctor: ${doctor.getNombre()}');
+    print('Especialidad: ${especialidad.getNombre()}');
+    print('Tipo Solicitud: $tipo');
+    print('');
+    Solicitud solicitud = Solicitud(tipo, especialidad);
+    return solicitud;
+    //solicitud.notificarDoctor(doctor, this);
   }
 
   responderCita(Cita cita, StatusCita tipo) {
-      cita.actualizarStatus(tipo);
+    cita.actualizarStatus(tipo);
   }
 
   void setSuscripccion(Suscripcion s) {
