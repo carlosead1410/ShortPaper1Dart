@@ -201,23 +201,18 @@ class BuscarDoctor {
     return false;
   }
 
-  List<Doctor> filtrarLista(Especialidad e) {
-    List<Doctor> listaFiltrada =
-        Doctores.where((doctor) => buscarEspecialidad(doctor, e) == true)
-            .toList();
-    return listaFiltrada;
-  }
+  List<Doctor> filtrarLista(var o) {
+    List<Doctor> listaFiltrada = [];
+    if (o.runtimeType == Ubicacion) {
+      listaFiltrada = Doctores.where(
+              (doctor) => doctor._consultorio?.getNombre() == o.getNombre())
+          .toList();
+    } else {
+      listaFiltrada =
+          Doctores.where((doctor) => buscarEspecialidad(doctor, o) == true)
+              .toList();
+    }
 
-  List<Doctor> filtrarListaU(Ubicacion u) {
-    List<Doctor> listaFiltrada = Doctores.where(
-        (doctor) => doctor._consultorio?.getNombre() == u.getNombre()).toList();
     return listaFiltrada;
   }
-  /*
-  List<Doctor> filtrarLista(Ubicacion u, String lugar) {
-    List<Doctor> listaFiltrada = Doctores.where(
-        (doctor) => doctor._consultorio?.getNombre() == u.getNombre()).toList();
-    return listaFiltrada;
-  }
-  */
 }

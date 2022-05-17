@@ -129,4 +129,14 @@ class Paciente extends ObservableAuditoria {
   void setSuscripccion(Suscripcion s) {
     this._plan = s;
   }
+
+  List<Doctor> buscarDoctores(var o, BuscarDoctor doctores) {
+    var aux = o.getNombre();
+    this.notify([
+      this.getNombre(),
+      DateTime.now().toString(),
+      "Buscó Doctores por parámetro $aux"
+    ]);
+    return doctores.filtrarLista(o);
+  }
 }
