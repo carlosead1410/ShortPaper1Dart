@@ -216,11 +216,6 @@ class BuscarDoctor {
     return listaFiltrada;
   }
 
-  List<Doctor> filtrarListaU(Ubicacion u) {
-    List<Doctor> listaFiltrada = Doctores.where(
-        (doctor) => doctor._consultorio?.getNombre() == u.getNombre()).toList();
-    return listaFiltrada;
-  }
   /*
   List<Doctor> filtrarLista(Ubicacion u, String lugar) {
     List<Doctor> listaFiltrada = Doctores.where(
